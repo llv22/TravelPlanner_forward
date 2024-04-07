@@ -30,11 +30,17 @@ if __name__ == '__main__':
 
     submission_list = []
 
-    for idx in tqdm(idx_number_list[:1]):
+    for idx in tqdm(idx_number_list):
         generated_plan = json.load(open(f'{args.output_dir}/{args.set_type}/generated_plan_{idx}.json'))
-        plan = generated_plan[-1][f'{args.model_name}{suffix}_{args.mode}_parsed_results']
-        submission_list.append({"idx":idx,"query":query_data_list[idx]['query'],"plan":plan})
-    
+        #print(generated_plan)
+        try:
+            plan = generated_plan[-1][f'{args.model_name}{suffix}_{args.mode}_parsed_results']
+        except:
+            plan = None
+        print(plan)
+        submission_list.append({"idx":idx,"query":query_data_list[idx - 1]['query'],"plan":plan})
+        print(len(submission_list))
+    #print(idx_number_list, submission_list)
     with open(f'{args.submission_file_dir}/{args.set_type}_{args.model_name}{suffix}_{args.mode}_submission.jsonl','w',encoding='utf-8') as w:
         for unit in submission_list:
             output = json.dumps(unit)
