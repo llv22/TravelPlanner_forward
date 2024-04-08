@@ -85,7 +85,7 @@ class Planner:
             
         elif model_name in ['gemini']:
             self.llm = ChatGoogleGenerativeAI(temperature=0,model="gemini-pro",google_api_key=GOOGLE_API_KEY)
-        elif model_name in ['llama2', 'llama2:70b']:
+        elif model_name in ['llama2', 'llama2-70b']:
             self.max_token_length = 30000
             self.llm = "heheheha"
         else:
@@ -100,7 +100,7 @@ class Planner:
         # print(self._build_agent_prompt(text, query))
         if self.model_name in ['gemini']:
             return str(self.llm.invoke(self._build_agent_prompt(text, query)).content)
-        elif self.model_name in ['llama2', 'llama2:70b']:
+        elif self.model_name in ['llama2', 'llama2-70b']:
             return str(llama_request(self._build_agent_prompt(text, query), self.model_name))
         else:
             if len(self.enc.encode(self._build_agent_prompt(text, query))) > 12000:
