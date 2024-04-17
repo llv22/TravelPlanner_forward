@@ -65,7 +65,6 @@ def eval_score(validation_or_test: str, file_path: str):
     for idx in tqdm(range(0,len(query_data_list))):
         query_data = query_data_list[idx]
         tested_plan = tested_plans[idx]
-        print("index 1 tested plan: ", tested_plan)
         if type(query_data) == str:
             query_data = eval(query_data)
         if type(tested_plan) == str:

@@ -645,7 +645,6 @@ if __name__ == '__main__':
     parser.add_argument("--output_dir", type=str, default="./")
     parser.add_argument("--mode", type=str, default="two-stage")
     args = parser.parse_args()
-    print(args)
     if args.set_type == 'validation':
         query_data_list  = load_dataset('osunlp/TravelPlanner','validation')['validation']
     elif args.set_type == 'test':
