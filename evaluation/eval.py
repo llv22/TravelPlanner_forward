@@ -72,7 +72,7 @@ def eval_score(validation_or_test: str, file_path: str):
         if type(query_data['local_constraint']) == str:
             query_data['local_constraint'] = eval(query_data['local_constraint'])
 
-        if tested_plan['plan']:
+        if tested_plan['plan'] and type(tested_plan['plan']) == list:
             delivery_cnt += 1
             commonsense_info_box = commonsense_eval(query_data,tested_plan['plan'])
         else:

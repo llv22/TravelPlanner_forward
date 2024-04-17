@@ -1,5 +1,6 @@
 import sys
 import os
+from utils.llama_request import llama_request
 sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
 from langchain.prompts import PromptTemplate
 from agents.prompts import planner_agent_prompt, cot_planner_agent_prompt, react_planner_agent_prompt,reflect_prompt,react_reflect_planner_agent_prompt, REFLECTION_HEADER
@@ -84,6 +85,9 @@ class Planner:
             
         elif model_name in ['gemini']:
             self.llm = ChatGoogleGenerativeAI(temperature=0,model="gemini-pro",google_api_key=GOOGLE_API_KEY)
+        elif model_name in ['llama2', 'llama2-70b']:
+            self.max_token_length = 30000
+            self.llm = "heheheha"
         else:
             self.llm = ChatOpenAI(model_name=model_name, temperature=0, max_tokens=4096, openai_api_key=OPENAI_API_KEY)
 
@@ -96,6 +100,8 @@ class Planner:
         # print(self._build_agent_prompt(text, query))
         if self.model_name in ['gemini']:
             return str(self.llm.invoke(self._build_agent_prompt(text, query)).content)
+        elif self.model_name in ['llama2', 'llama2-70b']:
+            return str(llama_request(self._build_agent_prompt(text, query), self.model_name))
         else:
             if len(self.enc.encode(self._build_agent_prompt(text, query))) > 12000:
                 return 'Max Token Length Exceeded.'
