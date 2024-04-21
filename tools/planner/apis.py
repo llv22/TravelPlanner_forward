@@ -82,7 +82,8 @@ class Planner:
                      openai_api_key="EMPTY", 
                      openai_api_base="http://localhost:8501/v1", 
                      model_name="YOUR/MODEL/PATH")
-            
+        elif model_name in ['mixtral-8x7b']:
+            self.max_token_length = 30000
         elif model_name in ['gemini']:
             self.llm = ChatGoogleGenerativeAI(temperature=0,model="gemini-pro",google_api_key=GOOGLE_API_KEY)
         elif model_name in ['llama2', 'llama2-70b']:
@@ -102,6 +103,8 @@ class Planner:
             return str(self.llm.invoke(self._build_agent_prompt(text, query)).content)
         elif self.model_name in ['llama2', 'llama2-70b']:
             return str(llama_request(self._build_agent_prompt(text, query), self.model_name))
+        elif self.model_name in ['mixtral-8x7b']:
+            return str(llama_request(self._build_agent_prompt(text, query), "mixtral:8x7b"))
         else:
             if len(self.enc.encode(self._build_agent_prompt(text, query))) > 12000:
                 return 'Max Token Length Exceeded.'

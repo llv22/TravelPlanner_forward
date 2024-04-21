@@ -10,3 +10,6 @@ def llama_request(prompt, model_name):
         except Exception as e:
             print(e)
             continue
+
+if(__name__ == "__main__"):
+    print(llama_request("Once upon a time", "mixtral:8x7b"))
