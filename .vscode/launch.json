@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Two-stage",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/agents",
+            "program": "tool_agents.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--set_type",
+                "validation",
+                "--output_dir",
+                "${workspaceFolder}/database/output/two_stage",
+                "--model_name",
+                "mistral-7B-32K"
+            ],
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Sole-Planning",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/tools/planner",
+            "program": "sole_planning.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--set_type",
+                "validation",
+                "--output_dir",
+                "${workspaceFolder}/database/output/sole_planning",
+                "--model_name",
+                "gpt-3.5-turbo-0125"
+            ],
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

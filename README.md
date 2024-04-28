@@ -93,22 +93,24 @@ python sole_planning.py  --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_n
 In order to parse natural language plans, we use gpt-4 to convert these plans into json formats. We encourage developers to try different parsing prompts to obtain better-formatted plans.
 
 ```bash
-export OUTPUT_DIR=path/to/your/output/file
+export OUTPUT_DIR=path/to/your/output/file #(should be ../evaluation)
 export MODEL_NAME=MODEL_NAME
 export OPENAI_API_KEY=YOUR_OPENAI_KEY
 export SET_TYPE=validation
 export STRATEGY=direct
-export TMP_DIR=path/to/tmp/parsed/plan/file
-export EVALUATION_DIR=path/to/your/evaluation/file
+export TMP_DIR=path/to/tmp/parsed/plan/file #should be .
+export EVALUATION_DIR=path/to/your/evaluation/file #should be ../evaluation
+export MODE=sole-planning #or two-stage
+export SUBMISSION_FILE_DIR=./
 
 cd postprocess
-python parsing.py  --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_name $MODEL_NAME --strategy $STRATEGY --tmp_dir $TMP_DIR
+python parsing.py  --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_name $MODEL_NAME --strategy $STRATEGY --tmp_dir $TMP_DIR --mode $MODE
 
 # Then these parsed plans should be stored as the real json formats.
-python element_extraction.py  --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_name $MODEL_NAME --strategy $STRATEGY --tmp_dir $TMP_DIR
+python element_extraction.py  --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_name $MODEL_NAME --strategy $STRATEGY --tmp_dir $TMP_DIR --mode $MODE
 
 # Finally, combine these plan files for evaluation. We also provide a evaluation example file "example_evaluation.jsonl" in the postprocess folder.
-python combination.py --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_name $MODEL_NAME --strategy $STRATEGY --evaluation_file_dir $EVALUATION_DIR
+python combination.py --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_name $MODEL_NAME --strategy $STRATEGY --submission_file_dir $SUBMISSION_FILE_DIR --mode $MODE
 ```
 
 ## Evaluation
@@ -117,7 +119,7 @@ We support the offline validation set evaluation through the provided evaluation
 
 ```bash
 export SET_TYPE=validation
-export EVALUATION_FILE_PATH=your/evaluation/file/path
+export EVALUATION_FILE_PATH=your/evaluation/file/path #should be ../postprocess/validation_mixtral-8x7b_direct_sole-planning_submission.jsonl
 
 cd evaluation
 python eval.py --set_type $SET_TYPE --evaluation_file_path $EVALUATION_FILE_PATH

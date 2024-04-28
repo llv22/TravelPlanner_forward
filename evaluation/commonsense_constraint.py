@@ -125,7 +125,7 @@ def is_valid_city_sequence(city_list):
 
 
 
-def is_reasonalbe_visiting_city(question, tested_data):
+def is_reasonable_visiting_city(question, tested_data):
 
     city_list = []
     
@@ -337,7 +337,7 @@ def is_valid_information_in_sandbox(question, tested_data):
                 except TypeError:
                     raise ValueError("The transportation {} in day {} can not be parsed.".format(value,i+1))
                 # print(value)
-                if len(flight.data[(flight.data['Flight Number'] == value.split('Flight Number: ')[1].split(',')[0]) & (flight.data['OriginCityName']==org_city) & (flight.data['DestCityName']==dest_city)]) < 1:
+                if len(value.split('Flight Number: ')) < 2 or len(flight.data[(flight.data['Flight Number'] == value.split('Flight Number: ')[1].split(',')[0]) & (flight.data['OriginCityName']==org_city) & (flight.data['DestCityName']==dest_city)]) < 1:
                      return False, f"The flight number in day {i+1} is invalid in the sandbox."
             
             elif 'self-driving' in value.lower() or 'taxi' in value.lower():
@@ -520,7 +520,7 @@ def is_not_absent(question, tested_data):
 
 def evaluation(query_data, tested_data):
     return_info = {}
-    return_info['is_reasonalbe_visiting_city'] = is_reasonalbe_visiting_city(query_data, tested_data)
+    return_info['is_reasonable_visiting_city'] = is_reasonable_visiting_city(query_data, tested_data)
     return_info['is_valid_restaurants'] = is_valid_restaurants(query_data, tested_data)
     return_info['is_valid_attractions'] = is_valid_attractions(query_data, tested_data)
     return_info['is_valid_accommodation'] = is_valid_accommodaton(query_data, tested_data)
@@ -532,7 +532,7 @@ def evaluation(query_data, tested_data):
 
 def boolean_evaluation(query_data, tested_data):
     return_info = {}
-    return_info['is_reasonalbe_visiting_city'] = is_reasonalbe_visiting_city(query_data, tested_data)
+    return_info['is_reasonable_visiting_city'] = is_reasonable_visiting_city(query_data, tested_data)
     return_info['is_valid_restaurants'] = is_valid_restaurants(query_data, tested_data)
     return_info['is_valid_accommodation'] = is_valid_accommodaton(query_data, tested_data)
     return_info['is_valid_attractions'] = is_valid_attractions(query_data, tested_data)

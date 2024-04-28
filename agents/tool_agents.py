@@ -1,4 +1,5 @@
 import re, string, os, sys
+from utils.llama_request import llama2_request
 sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
 sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "tools/planner")))
 sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "../tools/planner")))
@@ -140,6 +141,9 @@ class ReactAgent:
         
         elif react_llm_name in ['gemini']:
             self.llm = ChatGoogleGenerativeAI(temperature=0,model="gemini-pro",google_api_key=GOOGLE_API_KEY)
+            self.max_token_length = 30000
+        elif react_llm_name in ["llama2"]:
+            self.llm = "llama2boi"
             self.max_token_length = 30000
 
 
@@ -453,6 +457,8 @@ class ReactAgent:
                 # print(self._build_agent_prompt())
                 if self.react_name == 'gemini':
                     request = format_step(self.llm.invoke(self._build_agent_prompt(),stop=['\n']).content)
+                elif self.react_name == 'llama2':
+                    request = format_step(llama2_request(self._build_agent_prompt()))
                 else:
                     request = format_step(self.llm([HumanMessage(content=self._build_agent_prompt())]).content)
                 # print(request)
@@ -637,6 +643,7 @@ if __name__ == '__main__':
     parser.add_argument("--set_type", type=str, default="validation")
     parser.add_argument("--model_name", type=str, default="gpt-3.5-turbo-1106")
     parser.add_argument("--output_dir", type=str, default="./")
+    parser.add_argument("--mode", type=str, default="two-stage")
     args = parser.parse_args()
     if args.set_type == 'validation':
         query_data_list  = load_dataset('osunlp/TravelPlanner','validation')['validation']
@@ -672,7 +679,7 @@ if __name__ == '__main__':
                 result[-1][f'{args.model_name}_two-stage_action_logs'] = action_log
 
             # write to json file
-            with open(os.path.join(f'{args.output_dir}/{args.set_type}/generated_plan_{number}.json'), 'w') as f:
+            with open(os.path.join(f'{args.output_dir}/{args.set_type}/{args.mode}/generated_plan_{number}.json'), 'w') as f:
                 json.dump(result, f, indent=4)
         
     print(cb)

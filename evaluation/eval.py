@@ -7,7 +7,6 @@ from tqdm import tqdm
 from datasets import load_dataset
 import argparse
 
-
 def load_line_json_data(filename):
     data = []
     with open(filename, 'r', encoding='utf-8') as f:
@@ -40,7 +39,7 @@ def statistics(commonsense_statistic):
     return result
 
 def paper_term_mapping(commonsense_constraint_record, hard_constraint_record):
-    mapping_dict = {'is_valid_information_in_current_city':'Within Current City','is_valid_information_in_sandbox':'Within Sandbox','is_reasonalbe_visiting_city':'Reasonable City Route','is_valid_restaurants':'Diverse Restaurants','is_valid_transportation':'Non-conf. Transportation','is_valid_attractions':'Diverse Attractions','is_valid_accommodation':'Minimum Nights Stay','is_not_absent':'Complete Information','valid_cost':'Budget','valid_room_rule':'Room Rule','valid_cuisine':'Cuisine','valid_room_type':'Room Type','valid_transportation':'Transportation'}
+    mapping_dict = {'is_valid_information_in_current_city':'Within Current City','is_valid_information_in_sandbox':'Within Sandbox','is_reasonable_visiting_city':'Reasonable City Route','is_valid_restaurants':'Diverse Restaurants','is_valid_transportation':'Non-conf. Transportation','is_valid_attractions':'Diverse Attractions','is_valid_accommodation':'Minimum Nights Stay','is_not_absent':'Complete Information','valid_cost':'Budget','valid_room_rule':'Room Rule','valid_cuisine':'Cuisine','valid_room_type':'Room Type','valid_transportation':'Transportation'}
     remap_commonsense_constraint_record = {level:{day:{} for day in [3,5,7]} for level in ['easy','medium','hard']} 
     remap_hard_constraint_record = {level:{day:{} for day in [3,5,7]} for level in ['easy','medium','hard']} 
     for level in commonsense_constraint_record:
@@ -72,7 +71,7 @@ def eval_score(validation_or_test: str, file_path: str):
         if type(query_data['local_constraint']) == str:
             query_data['local_constraint'] = eval(query_data['local_constraint'])
 
-        if tested_plan['plan']:
+        if tested_plan['plan'] and type(tested_plan['plan']) == list:
             delivery_cnt += 1
             commonsense_info_box = commonsense_eval(query_data,tested_plan['plan'])
         else:
@@ -85,6 +84,7 @@ def eval_score(validation_or_test: str, file_path: str):
 
         plan_constraint_store.append({'commonsense_constraint':commonsense_info_box,'hard_constraint':hard_info_box})
 
+        if(query_data['level'] == "middle"): query_data['level'] = "medium"
         commonsenseConstraint_statistic[query_data['level']][query_data['days']].append(commonsense_info_box)
         hardConstraint_statistic[query_data['level']][query_data['days']].append(hard_info_box)
 
@@ -115,7 +115,7 @@ def eval_score(validation_or_test: str, file_path: str):
         elif constraint == 'hard':
             constraint_statistic = hardConstraint_statistic_processed
 
-        key_dict = {'commonsense':['is_valid_information_in_current_city','is_valid_information_in_sandbox','is_reasonalbe_visiting_city','is_valid_restaurants','is_valid_transportation','is_valid_attractions','is_valid_accommodation','is_not_absent'],'hard':['valid_cost','valid_room_rule','valid_cuisine','valid_room_type','valid_transportation']}
+        key_dict = {'commonsense':['is_valid_information_in_current_city','is_valid_information_in_sandbox','is_reasonable_visiting_city','is_valid_restaurants','is_valid_transportation','is_valid_attractions','is_valid_accommodation','is_not_absent'],'hard':['valid_cost','valid_room_rule','valid_cuisine','valid_room_type','valid_transportation']}
         
         for key in constraint_statistic:
             for key2 in constraint_statistic[key]:
@@ -150,6 +150,7 @@ def eval_score(validation_or_test: str, file_path: str):
     final_commonsense_cnt = 0
     final_hardConstraint_cnt = 0
     final_all_cnt_map = {level:0 for level in ['easy','medium','hard']}
+    json.dump(plan_constraint_store,open('data_record.json','w'))
     for idx in (range(0,len(query_data_list))):
         if plan_constraint_store[idx]['commonsense_constraint']:
             final_commonsense_pass = True
