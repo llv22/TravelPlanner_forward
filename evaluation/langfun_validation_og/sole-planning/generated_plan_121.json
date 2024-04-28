@@ -1,0 +1,5 @@
+[
+    {
+        "langfun_direct_sole-planning_results": "[\n  0 : Day(\n    day_number = 1,\n    current_city = 'Asheville to Minneapolis',\n    transportation = OtherTransportation(\n      mode = 'self-driving'\n    ),\n    breakfast = None,\n    attraction = None,\n    lunch = None,\n    dinner = 'The Cafe',\n    accommodation = 'Light-filled Apartment in great area, close 2 all!'\n  ),\n  1 : Day(\n    day_number = 2,\n    current_city = 'Minneapolis',\n    transportation = None,\n    breakfast = 'Monkeypod Kitchen by Merriman',\n    attraction = 'Minnehaha Falls',\n    lunch = \"Agent Jack's Bar\",\n    dinner = 'Court Avenue Brewing Company',\n    accommodation = 'Light-filled Apartment in great area, close 2 all!'\n  ),\n  2 : Day(\n    day_number = 3,\n    current_city = 'Minneapolis to Asheville',\n    transportation = OtherTransportation(\n      mode = 'self-driving'\n    ),\n    breakfast = None,\n    attraction = None,\n    lunch = None,\n    dinner = None,\n    accommodation = None\n  )\n]"
+    }
+]

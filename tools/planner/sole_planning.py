@@ -6,6 +6,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 from agents.prompts import planner_agent_prompt, cot_planner_agent_prompt, react_planner_agent_prompt,react_reflect_planner_agent_prompt,reflect_prompt
 # from utils.func import get_valid_name_city,extract_before_parenthesis, extract_numbers_from_filenames
 import json
+import pickle
 import time
 from langchain.callbacks import get_openai_callback
 
@@ -107,6 +108,10 @@ if __name__ == "__main__":
                 result[-1][f'{args.model_name}_{args.strategy}_sole-planning_results_logs'] = scratchpad 
             result[-1][f'{args.model_name}_{args.strategy}_sole-planning_results'] = planner_results
             # write to json file
-            with open(os.path.join(f'{args.output_dir}/{args.model_name}_{args.set_type}/sole-planning/generated_plan_{number}.json'), 'w') as f:
-                json.dump(result, f, indent=4)
+            if(args.model_name=="langfun"):
+                with open(os.path.join(f'{args.output_dir}/{args.model_name}_{args.set_type}/sole-planning/generated_plan_{number}.pkl'), 'wb') as f:
+                    pickle.dump(planner_results, f)
+            else:
+                with open(os.path.join(f'{args.output_dir}/{args.model_name}_{args.set_type}/sole-planning/generated_plan_{number}.json'), 'w') as f:
+                    json.dump(result, f, indent=4)
         print(cb)

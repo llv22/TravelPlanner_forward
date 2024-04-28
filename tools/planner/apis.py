@@ -1,9 +1,9 @@
 import sys
 import os
 from utils.llama_request import llama_request
-sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
+from utils.langfun_request import query_langfun
 from langchain.prompts import PromptTemplate
-from agents.prompts import planner_agent_prompt, cot_planner_agent_prompt, react_planner_agent_prompt,reflect_prompt,react_reflect_planner_agent_prompt, REFLECTION_HEADER
+from agents.prompts import langfun_planner_agent_prompt, planner_agent_prompt, cot_planner_agent_prompt, react_planner_agent_prompt,reflect_prompt,react_reflect_planner_agent_prompt, REFLECTION_HEADER
 from langchain.chat_models import ChatOpenAI
 from langchain.llms.base import BaseLLM
 from langchain.schema import (
@@ -89,6 +89,9 @@ class Planner:
         elif model_name in ['llama2', 'llama2-70b']:
             self.max_token_length = 30000
             self.llm = "heheheha"
+        elif model_name in ['langfun']:
+            self.agent_prompt = langfun_planner_agent_prompt
+            self.llm="heheheha"
         else:
             self.llm = ChatOpenAI(model_name=model_name, temperature=0, max_tokens=4096, openai_api_key=OPENAI_API_KEY)
 
@@ -105,6 +108,9 @@ class Planner:
             return str(llama_request(self._build_agent_prompt(text, query), self.model_name))
         elif self.model_name in ['mixtral-8x7b']:
             return str(llama_request(self._build_agent_prompt(text, query), "mixtral:8x7b"))
+        elif self.model_name in ['langfun']:
+            query = query_langfun(self._build_agent_prompt(text, query))
+            return query
         else:
             if len(self.enc.encode(self._build_agent_prompt(text, query))) > 12000:
                 return 'Max Token Length Exceeded.'

@@ -170,6 +170,8 @@ def get_filtered_data(component,data, column_name=('NAME','city')):
     return data[(data[column_name[0]] == name) & (data[column_name[1]] == city)]
 
 def extract_before_parenthesis(s):
+    if(s == None):
+        return ""
     match = re.search(r'^(.*?)\([^)]*\)', s)
     return match.group(1) if match else s
 

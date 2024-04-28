@@ -1,0 +1,5 @@
+[
+    {
+        "langfun_direct_sole-planning_results": "[\n  0 : Day(\n    day_number = 1,\n    current_city = 'Fort Wayne',\n    transportation = OtherTransportation(\n      mode = 'self-driving'\n    ),\n    breakfast = None,\n    attraction = None,\n    lunch = None,\n    dinner = None,\n    accommodation = None\n  ),\n  1 : Day(\n    day_number = 2,\n    current_city = 'Charlotte',\n    transportation = None,\n    breakfast = 'Olive Tree Cafe',\n    attraction = 'Freedom Park',\n    lunch = 'Central Perk 7',\n    dinner = 'Kylin Skybar',\n    accommodation = 'Luxury 2 bdr/2 bath prime Williamburg'\n  ),\n  2 : Day(\n    day_number = 3,\n    current_city = 'Charlotte',\n    transportation = OtherTransportation(\n      mode = 'self-driving'\n    ),\n    breakfast = \"Nagaland's Kitchen\",\n    attraction = 'The Mint Museum',\n    lunch = 'Shree Hari Vaishnav Dhaba',\n    dinner = \"Grover's - The Baker Shop\",\n    accommodation = 'Elegant Studio Apt in Prospect Heights'\n  )\n]"
+    }
+]
