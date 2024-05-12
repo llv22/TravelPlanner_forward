@@ -1,9 +1,9 @@
 import sys
 import os
 from utils.llama_request import llama_request
-from utils.langfun_request import query_langfun
+from utils.langfun_request import query_langfun, langfun_request_by_day
 from langchain.prompts import PromptTemplate
-from agents.prompts import langfun_planner_agent_prompt, planner_agent_prompt, cot_planner_agent_prompt, react_planner_agent_prompt,reflect_prompt,react_reflect_planner_agent_prompt, REFLECTION_HEADER
+from agents.prompts import langfun_day_by_day_agent_prompt, langfun_planner_agent_prompt, planner_agent_prompt, cot_planner_agent_prompt, react_planner_agent_prompt,reflect_prompt,react_reflect_planner_agent_prompt, REFLECTION_HEADER
 from langchain.chat_models import ChatOpenAI
 from langchain.llms.base import BaseLLM
 from langchain.schema import (
@@ -53,6 +53,7 @@ class Planner:
                  # args,
                  agent_prompt: PromptTemplate = planner_agent_prompt,
                  model_name: str = 'gpt-3.5-turbo-1106',
+                 strategy: str = "direct",
                  ) -> None:
 
         self.agent_prompt = agent_prompt
@@ -109,8 +110,11 @@ class Planner:
         elif self.model_name in ['mixtral-8x7b']:
             return str(llama_request(self._build_agent_prompt(text, query), "mixtral:8x7b"))
         elif self.model_name in ['langfun']:
-            query = query_langfun(self._build_agent_prompt(text, query))
-            return query
+            if self.strategy in ['direct']:
+                query = query_langfun(self._build_agent_prompt(text, query))
+                return query
+            elif self.strategy in ['by_day']:
+                return langfun_request_by_day(text, query)
         else:
             if len(self.enc.encode(self._build_agent_prompt(text, query))) > 12000:
                 return 'Max Token Length Exceeded.'
@@ -121,6 +125,28 @@ class Planner:
         return self.agent_prompt.format(
             text=text,
             query=query)
+    
+class ByDayPlanner:
+    def __init__(self,
+                 agent_prompt: PromptTemplate = langfun_day_by_day_agent_prompt,
+                 model_name: str = 'gpt-3.5-turbo-1106',
+                 ) -> None:
+        self.agent_prompt = agent_prompt
+        self.scratchpad: str = ''
+        self.model_name = model_name
+
+        if model_name in ['langfun']:
+            self.agent_prompt = langfun_planner_agent_prompt
+            self.llm="heheheha"
+        else:
+            self.llm = ChatOpenAI(model_name=model_name, temperature=0, max_tokens=4096, openai_api_key=OPENAI_API_KEY)
+
+
+        print(f"ByDayPlanner {model_name} loaded.")
+
+    def run(self, text, query, log_file=None) -> str:
+        if self.model_name in ['langfun']:
+            return langfun_request_by_day(text, query)
 
 
 class ReactPlanner:
