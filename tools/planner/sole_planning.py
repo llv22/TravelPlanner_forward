@@ -3,7 +3,7 @@ import re
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "../..")))
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-from agents.prompts import planner_agent_prompt, cot_planner_agent_prompt, react_planner_agent_prompt,react_reflect_planner_agent_prompt,reflect_prompt
+from agents.prompts import langfun_day_by_day_agent_prompt, planner_agent_prompt, cot_planner_agent_prompt, react_planner_agent_prompt,react_reflect_planner_agent_prompt,reflect_prompt
 # from utils.func import get_valid_name_city,extract_before_parenthesis, extract_numbers_from_filenames
 import json
 import pickle
@@ -11,7 +11,7 @@ import time
 from langchain.callbacks import get_openai_callback
 
 from tqdm import tqdm
-from tools.planner.apis import Planner, ReactPlanner, ReactReflectPlanner
+from tools.planner.apis import Planner, ReactPlanner, ReactReflectPlanner, ByDayPlanner
 import openai
 import argparse
 from datasets import load_dataset
@@ -76,6 +76,8 @@ if __name__ == "__main__":
 
     if args.strategy == 'direct':
         planner = Planner(model_name=args.model_name, agent_prompt=planner_agent_prompt)
+    elif args.strategy == 'by_day':
+        planner = ByDayPlanner(model_name=args.model_name, agent_prompt=langfun_day_by_day_agent_prompt)
     elif args.strategy == 'cot':
         planner = Planner(model_name=args.model_name, agent_prompt=cot_planner_agent_prompt)
     elif args.strategy == 'react':
@@ -86,7 +88,10 @@ if __name__ == "__main__":
 
     with get_openai_callback() as cb:
         for number in tqdm(numbers[:]):
-            
+            if os.path.exists(os.path.join(f'{args.output_dir}/{args.model_name}_{args.set_type}/sole-planning/generated_plan_{number}.pkl')):
+                print("Skipping ",number)
+                continue
+
             query_data = query_data_list[number-1]
             reference_information = query_data['reference_information']
             while True:
@@ -100,10 +105,10 @@ if __name__ == "__main__":
             # check if the directory exists
             if not os.path.exists(os.path.join(f'{args.output_dir}/{args.model_name}_{args.set_type}/sole-planning')):
                 os.makedirs(os.path.join(f'{args.output_dir}/{args.model_name}_{args.set_type}/sole-planning'))
-            if not os.path.exists(os.path.join(f'{args.output_dir}/{args.model_name}_{args.set_type}/sole-planning/generated_plan_{number}.json')):
+            if not os.path.exists(os.path.join(f'{args.output_dir}/{args.model_name}_{args.set_type}/sole-planning/generated_plan_{number}.pkl')):
                 result =  [{}]
             else:
-                result = json.load(open(os.path.join(f'{args.output_dir}/{args.model_name}_{args.set_type}/sole-planning/generated_plan_{number}.json')))
+                result = json.load(open(os.path.join(f'{args.output_dir}/{args.model_name}_{args.set_type}/sole-planning/generated_plan_{number}.pkl')))
             if args.strategy in ['react','reflexion']:
                 result[-1][f'{args.model_name}_{args.strategy}_sole-planning_results_logs'] = scratchpad 
             result[-1][f'{args.model_name}_{args.strategy}_sole-planning_results'] = planner_results

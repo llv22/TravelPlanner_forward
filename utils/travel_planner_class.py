@@ -28,7 +28,8 @@ class OtherTransportation(Transportation):
 @pg.members([
     ('name', pg.typing.Str()),
     ('cuisine', pg.typing.Str()),
-    ('city', pg.typing.Str())
+    ('city', pg.typing.Str()),
+    #('cost', pg.typing.Float())
 ])
 class Meal(pg.Object):
     pass
@@ -42,7 +43,8 @@ class Attraction(pg.Object):
 
 @pg.members([
     ('name', pg.typing.Str()),
-    ('city', pg.typing.Str())
+    ('city', pg.typing.Str()),
+    #('cost', pg.typing.Float())
 ])
 class Accomodation(pg.Object):
     pass
@@ -60,6 +62,13 @@ class Accomodation(pg.Object):
     ('accommodation', pg.typing.Union[Accomodation, pg.typing.Str()].noneable())
 ])
 class Day(pg.Object):
+    pass
+
+@pg.members([
+    ('days', pg.typing.List(Day)),
+    ('cost', pg.typing.Float())
+])
+class TravelPlannerState(pg.Object):
     pass
 
 # class Day(pg.Object):
