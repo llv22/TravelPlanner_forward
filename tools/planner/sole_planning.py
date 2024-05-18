@@ -1,3 +1,4 @@
+import ast
 import os
 import re
 import sys
@@ -54,6 +55,28 @@ def catch_openai_api_error():
     else:
         print("API error:", error)
 
+def convert_reference_information(reference_information):
+    items = ast.literal_eval(reference_information)
+    output = ""
+    for item in items:
+        # Split each item into key-value pairs
+        # if item[0] == '[':
+        #     item = item[1:]
+        # if item[-1] == ']':
+        #     item = item[:-1]
+        # if(item[0] != '{'):
+        #     item = '{' + item
+        # if(item[-1] != '}'):
+        #     item = item + '}'
+
+        description = item['Description']
+        content = item['Content']
+
+        output += f"{description}\n```csv\n{content}\n```\n"
+    
+    return output
+
+
 
 if __name__ == "__main__":
 
@@ -97,6 +120,9 @@ if __name__ == "__main__":
             while True:
                     if args.strategy in ['react','reflexion']:
                         planner_results, scratchpad  = planner.run(reference_information, query_data['query'])
+                    if args.strategy in ['by_day']:
+                        reference_information = convert_reference_information(reference_information)
+                        planner_results  = planner.run(reference_information, query_data['query'])
                     else:
                         planner_results  = planner.run(reference_information, query_data['query'])
                     if planner_results != None:

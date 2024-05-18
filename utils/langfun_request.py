@@ -34,7 +34,7 @@ def langfun_request_by_day(text, query):
     for i in range(num_days):
         while(True):
             try:
-                prompt = langfun_day_by_day_agent_prompt.format(text=text, query=query, current_state=current_state)
+                prompt = langfun_day_by_day_agent_prompt.format(reference_information=text, query=query, current_state=current_state)
                 next_day = lf.query(prompt, Day, lm=lf.llms.Gpt4Turbo(), examples=[
                     # lf.MappingExample(input='1 + 1', output=2, schema=int, preamble='Give me OUTPUT_OBJECT.')
                     lf.MappingExample(input='1 + 1', output=2, schema=int)

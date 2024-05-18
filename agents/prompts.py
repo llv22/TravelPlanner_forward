@@ -232,8 +232,12 @@ You must use Finish to indict you have finished the task. And each action only c
 Given information: {text}
 Query: {query}{scratchpad} """
 
-DAY_BY_DAY_INSTRUCTION = """You are a proficient planner. You will be provided reference information and the current state of a travel planning plan as well as the initial travel planning query. Please give me the next day of the plan. If the number of days in the current state is already the length explicitly defined in the query, output a Day class with parameter "day" equal to -1. For the next day, please give me a detailed plan, including specifics such as flight numbers (e.g., F0123456), restaurant names, and hotel names. Note that all the information in your plan should be derived from the provided reference information. You must adhere to the format given in the example. Additionally, all details should align with common sense. Attraction visits and meals are expected to be diverse; you can see which attractions and restaurants have been visited in the current state. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).
-***** Example *****
+DAY_BY_DAY_INSTRUCTION = """You are a proficient planner. You are given a travel planning query as well as the current state of the travel plan as well as reference information for the travel plan in CSV format. Please give me the next day of the plan. The output must fulfill the following criteria:
+1. Include specifics such as flight numbers (e.g., F0123456), restaurant names, and hotel names. 
+2. All the information in your plan should be derived from the provided reference information. You must adhere to the format given in the example. 
+3. All details should align with common sense. For example, attraction visits and meals are expected to be diverse; you can see which attractions and restaurants have been visited in the current state. 
+4. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).
+***** EXAMPLE *****
 Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 14th, 2022, with a budget of $30,200?
 Current State: 
 Day 1:
@@ -264,21 +268,12 @@ Lunch: Olive Tree Cafe, Charlotte
 Dinner: Kylin Skybar, Charlotte
 Accommodation: -
 
-Reasoning:
-Current City: Since the requested plan is three days long and the current state is the second day, the next day should be the last day of the plan. So, the current city is from Charlotte to Ithaca.
-Transportation: Looking into the reference information, we can see that there is a flight from Charlotte to Ithaca with flight number F3786167. The flight departs at 21:42 and arrives at 23:26.
-Breakfast: Since we are in Charlotte, we look into the reference information for restaurants in Charlotte. We can see that Subway is a good option for breakfast, as it has not been picked before
-Attraction: Since the flight is in the evening, we can visit an attraction today. Looking into the reference information, we can see that Books Monument is a good option for an attraction, as it has not been picked before.
-Lunch: Since we are in Charlotte, we look into the reference information for restaurants in Charlotte. We can see that Olive Tree Cafe is a good option for lunch, as it has not been picked before.
-Dinner: Since we are in Charlotte, we look into the reference information for restaurants in Charlotte. We can see that Kylin Skybar is a good option for dinner, as it has not been picked before.
-Accommodation: Since we are returning to the departure city as we are finishing our trip, we do not need accommodation.
-
 ***** Example Ends *****
 
 Following the following steps to answer the query:
 1. Reason out each component of the plan, starting with the current city and ending with the accommodation. Enclose this section with <Reasoning: >.
 
-Given information: {text}
+Reference Information: {reference_information}
 Query: {query}
 Current State: {current_state}
 Travel Plan:"""

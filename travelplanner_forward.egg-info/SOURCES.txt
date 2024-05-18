@@ -1,0 +1,7 @@
+LICENSE
+README.md
+setup.py
+travelplanner_forward.egg-info/PKG-INFO
+travelplanner_forward.egg-info/SOURCES.txt
+travelplanner_forward.egg-info/dependency_links.txt
+travelplanner_forward.egg-info/top_level.txt

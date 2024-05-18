@@ -1,5 +1,4 @@
 import os, sys
-sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
 from commonsense_constraint import evaluation as commonsense_eval
 from hard_constraint import evaluation as hard_eval
 import json

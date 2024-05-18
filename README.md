@@ -81,7 +81,7 @@ export OPENAI_API_KEY=YOUR_OPENAI_KEY
 export GOOGLE_API_KEY=YOUR_GOOGLE_KEY
 # SET_TYPE in ['validation', 'test']
 export SET_TYPE=validation
-# STRATEGY in ['direct','cot','react','reflexion']
+# STRATEGY in ['direct','cot','react','reflexion', 'by_day']
 export STRATEGY=direct
 
 cd tools/planner
