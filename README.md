@@ -75,13 +75,13 @@ Please refer to paper for more details.
 ```bash
 export OUTPUT_DIR=path/to/your/output/file
 # We support MODEL in ['gpt-3.5-turbo-X','gpt-4-1106-preview','gemini','mistral-7B-32K','mixtral']
-export MODEL_NAME=MODEL_NAME
+export MODEL_NAME=MODEL_NAME # langfun
 export OPENAI_API_KEY=YOUR_OPENAI_KEY
 # if you do not want to test google models, like gemini, just input "1".
 export GOOGLE_API_KEY=YOUR_GOOGLE_KEY
 # SET_TYPE in ['validation', 'test']
 export SET_TYPE=validation
-# STRATEGY in ['direct','cot','react','reflexion']
+# STRATEGY in ['direct','cot','react','reflexion', 'by_day']
 export STRATEGY=direct
 
 cd tools/planner
