@@ -34,15 +34,6 @@ class ModifiedDay(pg.Object):
         self.accommodation = data.accommodation
 
 if(__name__ == '__main__'):
-    # Parse the loaded string into a Python object
-    # loaded_object = json.loads(open("test.json").read())
-    # element = loaded_object
-    with open('generated_plan_1 copy.pkl', 'rb') as f:
+    with open('./evaluation/langfun_validation/sole-planning/generated_plan_1.pkl', 'rb') as f:
         loaded_data = pickle.load(f)
     print(loaded_data[0], loaded_data[1], loaded_data[2])
-    #unit = loaded_data[0]
-    #print(unit)
-    #pg.patching.patch_on_key(unit, 'transportation', "lmfaoo finally")
-    #print(unit.__dict__["_sym_attributes"])
-    # modified_day = ModifiedDay(loaded_data[0]
-    # print(modified_day)
