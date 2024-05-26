@@ -55,7 +55,6 @@ Each action only calls one function once. Do not add any description in the acti
 Query: {query}{scratchpad}"""
 
 
-
 zeroshot_react_agent_prompt = PromptTemplate(
                         input_variables=["query", "scratchpad"],
                         template=ZEROSHOT_REACT_INSTRUCTION,
@@ -232,11 +231,14 @@ You must use Finish to indict you have finished the task. And each action only c
 Given information: {text}
 Query: {query}{scratchpad} """
 
-DAY_BY_DAY_INSTRUCTION = """You are a proficient planner. You are given a travel planning query as well as the current state of the travel plan as well as reference information for the travel plan in CSV format. Please give me the next day of the plan. The output must fulfill the following criteria:
+DAY_BY_DAY_INSTRUCTION = """You are a proficient planner. You are given a travel planning query as well as the current state of the travel plan as well as reference information for the travel plan in CSV format. Your task is to output the next day of the travel plan. Please reason out each component of the plan, starting with the current city and ending with the accommodation before outputting the next day. Enclose this section with <Reasoning><Reasoning/>. Reason out the output according to the following criteria:
 1. Include specifics such as flight numbers (e.g., F0123456), restaurant names, and hotel names. 
 2. All the information in your plan should be derived from the provided reference information. You must adhere to the format given in the example. 
 3. All details should align with common sense. For example, attraction visits and meals are expected to be diverse; you can see which attractions and restaurants have been visited in the current state. 
 4. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).
+5. When choosing accommodations, ensure that the number of nights stayed at that accommodation is at least the minimum number of nights given in the reference information.
+6. Ensure that the final day of the plan returns to the origin city. Only return to the origin city on the last day; Do not return to the origin city on any of the other days.
+7. Do not visit the same city or attraction twice in the duration of the trip.
 ***** EXAMPLE *****
 Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 14th, 2022, with a budget of $30,200?
 Current State: 
@@ -259,6 +261,8 @@ Dinner: Pind Balluchi, Charlotte
 Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte
 
 Next Day:
+<Reasoning> Since we are on Day 3 of the 3 day plan, we will return to the origin city of Ithaca from the current city of Charlotte. Looking into the section of the reference data indicating flights from Charlotte to Ithaca and noting that the prompt does not impose restrictions on travel format, we choose Flight F3786167 whose Departure Time is 21:42 and Arrival time is 23:26. Since we have time for Breakfast, we will look at the reference information section on restaurants and note that we have not visited the Subway before, so we choose this as the breakfast. Since the flight is not until the evening, we have time for an Attraction in Charlotte, and looking into the reference information, we find the Books Monument to be available. For Lunch, we choose the Olive Tree Cafe, and for Dinner, we choose the Kylin Skybar. Since we are returning to the origin city, no Accomodation is needed. <Reasoning/>
+
 Day 3:
 Current City: from Charlotte to Ithaca
 Transportation: Flight Number: F3786167, from Charlotte to Ithaca, Departure Time: 21:42, Arrival Time: 23:26
@@ -270,13 +274,11 @@ Accommodation: -
 
 ***** Example Ends *****
 
-Following the following steps to answer the query:
-1. Reason out each component of the plan, starting with the current city and ending with the accommodation. Enclose this section with <Reasoning: >.
-
 Reference Information: {reference_information}
 Query: {query}
 Current State: {current_state}
-Travel Plan:"""
+Travel Plan:
+"""
 
 planner_agent_prompt = PromptTemplate(
                         input_variables=["text","query"],
