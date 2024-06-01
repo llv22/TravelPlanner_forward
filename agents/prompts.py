@@ -65,43 +65,51 @@ Query: {query}
 Travel Plan:
 """
 
-PLANNER_INSTRUCTION = """You are a proficient planner. You are given a travel planning query reference information for the travel plan in CSV format. Your task is to output the travel plan.
+PLANNER_INSTRUCTION = """YYou are a proficient planner. You are given a travel planning query reference information for the travel plan in CSV format. Your task is to output the travel plan.
 1. Include specifics such as flight numbers (e.g., F0123456), restaurant names, and hotel names. 
 2. All the information in your plan should be derived from the provided reference information. You must adhere to the format given in the example. 
 3. All details should align with common sense. For example, attraction visits and meals are expected to be diverse; you can see which attractions and restaurants have been visited in the current state. 
 4. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).
 5. When choosing accommodations, ensure that the number of nights stayed at that accommodation is at least the minimum number of nights given in the reference information.
 6. Ensure that the final day of the plan returns to the origin city. Only return to the origin city on the last day; Do not return to the origin city on any of the other days.
-7. Do not visit the same city or attraction twice in the duration of the trip.
+7. Do not visit the same attraction twice in the duration of the trip.
+8. Ensure that when you select Attractions, Accommodations, Transportation, and Meals from the reference data you note their price and obey the given budget. 
 ***** Example *****
-Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 14th, 2022, with a budget of $30,200?
+Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 10th, 2022, with a budget of $7,200?
 Travel Plan:
 Day 1:
 Current City: from Ithaca to Charlotte
-Transportation: Flight Number: F3633413, from Ithaca to Charlotte, Departure Time: 05:38, Arrival Time: 07:46
-Breakfast: Nagaland's Kitchen, Charlotte
-Attraction: The Charlotte Museum of History, Charlotte
-Lunch: Cafe Maple Street, Charlotte
-Dinner: Bombay Vada Pav, Charlotte
-Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte
+Transportation: From the reference data, we look at the section for Flights from Ithaca to Charlotte, and we note that the following flight exists: Flight Number: F3633413, from Ithaca to Charlotte, Departure Time: 05:38, Arrival Time: 07:46, Cost 1500
+Breakfast: Nagaland's Kitchen, Charlotte, Cost 70
+Attraction: The Charlotte Museum of History, Charlotte, Cost 70
+Lunch: Cafe Maple Street, Charlotte, Cost 100
+Dinner: Bombay Vada Pav, Charlotte, Cost 130
+Accommodation: Affordable Spacious Refurbished Room in Bushwick, Charlotte, Cost 460
+
+Total cost: The total cost is the sum of cost from transportation, Breakfast, Attraction, Lunch, Dinner and Accomodation. It is 1500 + 70 +  70 + 100 + 130 + 460 which is 2330.
 
 Day 2:
 Current City: Charlotte
-Transportation: -
-Breakfast: Olive Tree Cafe, Charlotte
-Attraction: The Mint Museum, Charlotte;Romare Bearden Park, Charlotte.
-Lunch: Birbal Ji Dhaba, Charlotte
-Dinner: Pind Balluchi, Charlotte
-Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte
+Transportation: -, Cost 0
+Breakfast: Olive Tree Cafe, Charlotte, Cost 70
+Attraction: The Mint Museum, Charlotte;Romare Bearden Park, Charlotte, Cost 140
+Lunch: Birbal Ji Dhaba, Charlotte, Cost 140
+Dinner: Pind Balluchi, Charlotte, Cost 200
+Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte, Cost 500
+Total cost: The total cost is the sum of cost from transportation, Breakfast, Attraction, Lunch, Dinner and Accomodation. It is 0 + 70 +  140 + 140 + 200 + 500 which is 1050.
 
 Day 3:
 Current City: from Charlotte to Ithaca
-Transportation: Flight Number: F3786167, from Charlotte to Ithaca, Departure Time: 21:42, Arrival Time: 23:26
-Breakfast: Subway, Charlotte
-Attraction: Books Monument, Charlotte.
-Lunch: Olive Tree Cafe, Charlotte
-Dinner: Kylin Skybar, Charlotte
-Accommodation: -
+Transportation: Flight Number: F3786167, from Charlotte to Ithaca, Departure Time: 21:42, Arrival Time: 23:26, Cost 1800
+Breakfast: Subway, Charlotte, Cost 100
+Attraction: Books Monument, Charlotte, Cost 210
+Lunch: Olive Tree Cafe, Charlotte, Cost 140
+Dinner: Kylin Skybar, Charlotte, Cost 350
+Accommodation: -, Cost 0
+
+Total cost: The total cost is the sum of cost from transportation, Breakfast, Attraction, Lunch, Dinner and Accomodation. It is 1800 + 100 + 210 + 140 + 350 + 0 = 2600
+
+The total cost of this trip is the sum of the cost from day 1, day 2 and day 3. It is 2330 + 1050 + 2600 = 5980 which is less than the required budget 7200.
 
 ***** Example Ends *****
 

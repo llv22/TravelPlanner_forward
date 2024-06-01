@@ -93,14 +93,13 @@ python sole_planning.py  --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_n
 In order to parse natural language plans, we use gpt-4 to convert these plans into json formats. We encourage developers to try different parsing prompts to obtain better-formatted plans.
 
 ```bash
-export OUTPUT_DIR=path/to/your/output/file #(should be ../evaluation)
-export MODEL_NAME=MODEL_NAME
-export OPENAI_API_KEY=YOUR_OPENAI_KEY
+export OUTPUT_DIR=../evaluation
+export MODEL_NAME=gpt-4-1106-preview
 export SET_TYPE=validation
 export STRATEGY=direct
-export TMP_DIR=path/to/tmp/parsed/plan/file #should be .
-export EVALUATION_DIR=path/to/your/evaluation/file #should be ../evaluation
-export MODE=sole-planning #or two-stage
+export TMP_DIR=.
+export EVALUATION_DIR=../evaluation
+export MODE=sole-planning
 export SUBMISSION_FILE_DIR=./
 
 cd postprocess

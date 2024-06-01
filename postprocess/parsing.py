@@ -21,6 +21,7 @@ if __name__ == '__main__':
         suffix = f'_{args.strategy}'
     data = build_plan_format_conversion_prompt(directory=args.output_dir, set_type=args.set_type, model_name=args.model_name, strategy=args.strategy, mode=args.mode)
     output_file = f'{args.tmp_dir}/{args.set_type}_{args.model_name}{suffix}_{args.mode}.txt'
+    #print(data)
 
     total_price = 0
     for idx, prompt in enumerate(tqdm(data)):

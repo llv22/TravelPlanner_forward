@@ -13,15 +13,21 @@ export STRATEGY=direct
 
 python tools/planner/sole_planning.py  --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_name $MODEL_NAME --strategy $STRATEGY
 
-export OUTPUT_DIR=./evaluation
+export OUTPUT_DIR=../evaluation
 export TMP_DIR=.
-export EVALUATION_DIR=./evaluation
+export EVALUATION_DIR=../evaluation
 export MODE=sole-planning
-export SUBMISSION_FILE_DIR=./postprocess
+export SUBMISSION_FILE_DIR=./
 export STRATEGY=direct
 
-python postprocess/combination.py --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_name $MODEL_NAME --strategy $STRATEGY --submission_file_dir $SUBMISSION_FILE_DIR --mode $MODE
+cd postprocess
+python parsing.py  --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_name $MODEL_NAME --strategy $STRATEGY --tmp_dir $TMP_DIR --mode $MODE
+
+python element_extraction.py  --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_name $MODEL_NAME --strategy $STRATEGY --tmp_dir $TMP_DIR --mode $MODE
+
+python combination.py --set_type $SET_TYPE --output_dir $OUTPUT_DIR --model_name $MODEL_NAME --strategy $STRATEGY --submission_file_dir $SUBMISSION_FILE_DIR --mode $MODE
 
 export EVALUATION_FILE_PATH=../postprocess/validation_gpt-4-1106-preview_direct_sole-planning_submission.jsonl
 
-python evaluation/eval.py --set_type $SET_TYPE --evaluation_file_path $EVALUATION_FILE_PATH
+cd ../evaluation
+python eval.py --set_type $SET_TYPE --evaluation_file_path $EVALUATION_FILE_PATH
