@@ -1,0 +1,118 @@
+Category,Difficulty,Level,Constraint,'True,'False,Total,Success Percentage
+Commonsense Constraint,easy,3,Reasonable City Route,20,0,20,1.0
+Commonsense Constraint,easy,3,Diverse Restaurants,18,2,20,0.9
+Commonsense Constraint,easy,3,Diverse Attractions,20,0,20,1.0
+Commonsense Constraint,easy,3,Minimum Nights Stay,14,6,20,0.7
+Commonsense Constraint,easy,3,Non-conf. Transportation,19,1,20,0.95
+Commonsense Constraint,easy,3,Within Current City,20,0,20,1.0
+Commonsense Constraint,easy,3,Within Sandbox,18,2,20,0.9
+Commonsense Constraint,easy,3,Complete Information,20,0,20,1.0
+Commonsense Constraint,easy,5,Reasonable City Route,20,0,20,1.0
+Commonsense Constraint,easy,5,Diverse Restaurants,15,5,20,0.75
+Commonsense Constraint,easy,5,Diverse Attractions,20,0,20,1.0
+Commonsense Constraint,easy,5,Minimum Nights Stay,8,12,20,0.4
+Commonsense Constraint,easy,5,Non-conf. Transportation,9,11,20,0.45
+Commonsense Constraint,easy,5,Within Current City,19,1,20,0.95
+Commonsense Constraint,easy,5,Within Sandbox,16,4,20,0.8
+Commonsense Constraint,easy,5,Complete Information,20,0,20,1.0
+Commonsense Constraint,easy,7,Reasonable City Route,20,0,20,1.0
+Commonsense Constraint,easy,7,Diverse Restaurants,15,5,20,0.75
+Commonsense Constraint,easy,7,Diverse Attractions,20,0,20,1.0
+Commonsense Constraint,easy,7,Minimum Nights Stay,4,16,20,0.2
+Commonsense Constraint,easy,7,Non-conf. Transportation,7,13,20,0.35
+Commonsense Constraint,easy,7,Within Current City,19,1,20,0.95
+Commonsense Constraint,easy,7,Within Sandbox,19,1,20,0.95
+Commonsense Constraint,easy,7,Complete Information,16,4,20,0.8
+Commonsense Constraint,medium,3,Reasonable City Route,20,0,20,1.0
+Commonsense Constraint,medium,3,Diverse Restaurants,17,3,20,0.85
+Commonsense Constraint,medium,3,Diverse Attractions,20,0,20,1.0
+Commonsense Constraint,medium,3,Minimum Nights Stay,18,2,20,0.9
+Commonsense Constraint,medium,3,Non-conf. Transportation,20,0,20,1.0
+Commonsense Constraint,medium,3,Within Current City,20,0,20,1.0
+Commonsense Constraint,medium,3,Within Sandbox,18,2,20,0.9
+Commonsense Constraint,medium,3,Complete Information,19,1,20,0.95
+Commonsense Constraint,medium,5,Reasonable City Route,20,0,20,1.0
+Commonsense Constraint,medium,5,Diverse Restaurants,13,7,20,0.65
+Commonsense Constraint,medium,5,Diverse Attractions,20,0,20,1.0
+Commonsense Constraint,medium,5,Minimum Nights Stay,10,10,20,0.5
+Commonsense Constraint,medium,5,Non-conf. Transportation,12,8,20,0.6
+Commonsense Constraint,medium,5,Within Current City,20,0,20,1.0
+Commonsense Constraint,medium,5,Within Sandbox,19,1,20,0.95
+Commonsense Constraint,medium,5,Complete Information,18,2,20,0.9
+Commonsense Constraint,medium,7,Reasonable City Route,20,0,20,1.0
+Commonsense Constraint,medium,7,Diverse Restaurants,17,3,20,0.85
+Commonsense Constraint,medium,7,Diverse Attractions,20,0,20,1.0
+Commonsense Constraint,medium,7,Minimum Nights Stay,3,17,20,0.15
+Commonsense Constraint,medium,7,Non-conf. Transportation,8,12,20,0.4
+Commonsense Constraint,medium,7,Within Current City,19,1,20,0.95
+Commonsense Constraint,medium,7,Within Sandbox,14,6,20,0.7
+Commonsense Constraint,medium,7,Complete Information,20,0,20,1.0
+Commonsense Constraint,hard,3,Reasonable City Route,20,0,20,1.0
+Commonsense Constraint,hard,3,Diverse Restaurants,18,2,20,0.9
+Commonsense Constraint,hard,3,Diverse Attractions,20,0,20,1.0
+Commonsense Constraint,hard,3,Minimum Nights Stay,13,7,20,0.65
+Commonsense Constraint,hard,3,Non-conf. Transportation,20,0,20,1.0
+Commonsense Constraint,hard,3,Within Current City,20,0,20,1.0
+Commonsense Constraint,hard,3,Within Sandbox,19,1,20,0.95
+Commonsense Constraint,hard,3,Complete Information,20,0,20,1.0
+Commonsense Constraint,hard,5,Reasonable City Route,20,0,20,1.0
+Commonsense Constraint,hard,5,Diverse Restaurants,18,2,20,0.9
+Commonsense Constraint,hard,5,Diverse Attractions,20,0,20,1.0
+Commonsense Constraint,hard,5,Minimum Nights Stay,9,11,20,0.45
+Commonsense Constraint,hard,5,Non-conf. Transportation,18,2,20,0.9
+Commonsense Constraint,hard,5,Within Current City,20,0,20,1.0
+Commonsense Constraint,hard,5,Within Sandbox,19,1,20,0.95
+Commonsense Constraint,hard,5,Complete Information,20,0,20,1.0
+Commonsense Constraint,hard,7,Reasonable City Route,19,1,20,0.95
+Commonsense Constraint,hard,7,Diverse Restaurants,15,5,20,0.75
+Commonsense Constraint,hard,7,Diverse Attractions,20,0,20,1.0
+Commonsense Constraint,hard,7,Minimum Nights Stay,1,19,20,0.05
+Commonsense Constraint,hard,7,Non-conf. Transportation,18,2,20,0.9
+Commonsense Constraint,hard,7,Within Current City,18,2,20,0.9
+Commonsense Constraint,hard,7,Within Sandbox,18,2,20,0.9
+Commonsense Constraint,hard,7,Complete Information,19,1,20,0.95
+Hard Constraint,easy,3,Cuisine,0,0,0,0
+Hard Constraint,easy,3,Room Rule,0,0,0,0
+Hard Constraint,easy,3,Transportation,0,0,0,0
+Hard Constraint,easy,3,Room Type,0,0,0,0
+Hard Constraint,easy,3,Budget,17,1,20,0.85
+Hard Constraint,easy,5,Cuisine,0,0,0,0
+Hard Constraint,easy,5,Room Rule,0,0,0,0
+Hard Constraint,easy,5,Transportation,0,0,0,0
+Hard Constraint,easy,5,Room Type,0,0,0,0
+Hard Constraint,easy,5,Budget,14,2,20,0.7
+Hard Constraint,easy,7,Cuisine,0,0,0,0
+Hard Constraint,easy,7,Room Rule,0,0,0,0
+Hard Constraint,easy,7,Transportation,0,0,0,0
+Hard Constraint,easy,7,Room Type,0,0,0,0
+Hard Constraint,easy,7,Budget,13,2,20,0.65
+Hard Constraint,medium,3,Cuisine,4,0,6,0.6666666666666666
+Hard Constraint,medium,3,Room Rule,3,1,5,0.6
+Hard Constraint,medium,3,Transportation,0,0,0,0
+Hard Constraint,medium,3,Room Type,7,2,9,0.7777777777777778
+Hard Constraint,medium,3,Budget,13,4,20,0.65
+Hard Constraint,medium,5,Cuisine,6,2,8,0.75
+Hard Constraint,medium,5,Room Rule,4,1,6,0.6666666666666666
+Hard Constraint,medium,5,Transportation,0,0,0,0
+Hard Constraint,medium,5,Room Type,3,1,6,0.5
+Hard Constraint,medium,5,Budget,10,7,20,0.5
+Hard Constraint,medium,7,Cuisine,6,0,8,0.75
+Hard Constraint,medium,7,Room Rule,2,4,9,0.2222222222222222
+Hard Constraint,medium,7,Transportation,0,0,0,0
+Hard Constraint,medium,7,Room Type,0,2,3,0.0
+Hard Constraint,medium,7,Budget,9,5,20,0.45
+Hard Constraint,hard,3,Cuisine,4,6,11,0.36363636363636365
+Hard Constraint,hard,3,Room Rule,9,9,19,0.47368421052631576
+Hard Constraint,hard,3,Transportation,17,0,17,1.0
+Hard Constraint,hard,3,Room Type,11,1,13,0.8461538461538461
+Hard Constraint,hard,3,Budget,5,14,20,0.25
+Hard Constraint,hard,5,Cuisine,5,3,8,0.625
+Hard Constraint,hard,5,Room Rule,9,9,19,0.47368421052631576
+Hard Constraint,hard,5,Transportation,16,0,17,0.9411764705882353
+Hard Constraint,hard,5,Room Type,14,1,16,0.875
+Hard Constraint,hard,5,Budget,9,10,20,0.45
+Hard Constraint,hard,7,Cuisine,5,1,7,0.7142857142857143
+Hard Constraint,hard,7,Room Rule,6,11,19,0.3157894736842105
+Hard Constraint,hard,7,Transportation,15,0,17,0.8823529411764706
+Hard Constraint,hard,7,Room Type,10,6,17,0.5882352941176471
+Hard Constraint,hard,7,Budget,11,7,20,0.55

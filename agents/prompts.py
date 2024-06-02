@@ -67,37 +67,64 @@ Query: {query}
 Travel Plan:
 """
 
-PLANNER_INSTRUCTION = """You are a proficient planner. Based on the provided information and query, please give me a detailed plan, including specifics such as flight numbers (e.g., F0123456), restaurant names, and accommodation names. Note that all the information in your plan should be derived from the provided data. You must adhere to the format given in the example. Additionally, all details should align with commonsense. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).
-
+PLANNER_INSTRUCTION = """You are a proficient planner. You are given a travel planning query reference information for the travel plan in CSV format. Your task is to output the travel plan.
+1. Include specifics such as flight numbers (e.g., F0123456), restaurant names, and hotel names. 
+2. All the information in your plan should be derived from the provided reference information. You must adhere to the format given in the example. 
+3. All details should align with common sense. For example, attraction visits and meals are expected to be diverse.
+4. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).
+5. When choosing accommodations, ensure that the number of nights stayed at that accommodation is at least the minimum number of nights given in the reference information. To help with this, you may as well choose the accommodation with the least number of required nights.
+6. Ensure that the final day of the plan returns to the origin city. Only return to the origin city on the last day; Do not return to the origin city on any of the other days.
+7. Do not visit the same attraction twice in the duration of the trip.
+8. Ensure that when you select Attractions, Accommodations, Transportation, and Meals from the reference data you note their price and obey the given budget. 
+9. Greedily choose the cheapest Attraction, Accommodation, Transportation, and Meal that aligns with the query from the reference data. 
+10. The cost of transportation can be calculated as follows: For flights, the cost is equal to the cost given in the reference information times the number of people in the plan. For self-driving, the cost is equal to the cost given in the reference information times the ceiling of the number of people in the plan over 5. For taxis, it is equal to the cost in the reference information times the ceiling of the number of people in the plan over 4.
+11. The cost of meals can be calculated as the cost given in the reference information times the number of people in the plan.
+12. The cost of accommodations is equal to the cost given in the reference information times the ceiling of the number of people in the plan over the maximum occupancy, also given in the reference information
+13. If the Query specifies any cuisines that are preferred, you must choose to dine at least one restaurant for each cuisine.
+14. If the Query specifies any house rules, you must abide by those rules when you choose accomodations
 ***** Example *****
-Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 14th, 2022, with a budget of $30,200?
+Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 14th, 2022, with a budget of $10,000?
 Travel Plan:
 Day 1:
 Current City: from Ithaca to Charlotte
-Transportation: Flight Number: F3633413, from Ithaca to Charlotte, Departure Time: 05:38, Arrival Time: 07:46
-Breakfast: Nagaland's Kitchen, Charlotte
+Transportation: Flight Number: F3633413, from Ithaca to Charlotte, Departure Time: 05:38, Arrival Time: 07:46, Cost: 225
+Breakfast: Nagaland's Kitchen, Charlotte, Cost: 73, Cuisines: "Pizza, American, Desserts"
 Attraction: The Charlotte Museum of History, Charlotte
-Lunch: Cafe Maple Street, Charlotte
-Dinner: Bombay Vada Pav, Charlotte
-Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte
+Lunch: Cafe Maple Street, Charlotte, Cost: 91, "Fast Food, Tea, Italian"
+Dinner: Bombay Vada Pav, Charlotte, Cost: 33, "Desserts, Pizza, Italian, BBQ, Cafe"
+Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte, Cost: 274, Maximum Occupancy: 1, House Rules: No Visitors, Minimum Nights: 2
 
+Number of People = 7
+Total Cost = 7 * 225 + 7 * 73 + 7 * 91 + 7 * 33 + 7 * 274 / 1 = 4872
+Accomodation Minimum Nights: 1/2
+ 
 Day 2:
 Current City: Charlotte
 Transportation: -
-Breakfast: Olive Tree Cafe, Charlotte
+Breakfast: Olive Tree Cafe, Charlotte, Cost: 23, Cuisines: “Tea, Chinese, Desserts”
 Attraction: The Mint Museum, Charlotte;Romare Bearden Park, Charlotte.
-Lunch: Birbal Ji Dhaba, Charlotte
-Dinner: Pind Balluchi, Charlotte
-Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte
+Lunch: Birbal Ji Dhaba, Charlotte, Cost: 40, Cuisines: "Cafe, Bakery, Desserts"
+Dinner: Pind Balluchi, Charlotte, Cost: 42, Cuisines: "Pizza, French, Mexican, BBQ, Cafe, Seafood"
+Accommodation: Affordable Spacious Refurbished Room in Bushwick!, Charlotte, Cost: 274, Maximum Occupancy: 1, House Rules: No Visitors, Minimum Nights: 2
 
+Number of people = 7
+Total cost = 7 * 23 + 7 *40 + 7 * 42 + 7 * 274 / 1 = 2653
+Accommodation Minimum Nights: 2/2
+ 
 Day 3:
 Current City: from Charlotte to Ithaca
-Transportation: Flight Number: F3786167, from Charlotte to Ithaca, Departure Time: 21:42, Arrival Time: 23:26
-Breakfast: Subway, Charlotte
-Attraction: Books Monument, Charlotte.
-Lunch: Olive Tree Cafe, Charlotte
-Dinner: Kylin Skybar, Charlotte
+Transportation: Flight Number: F3786167, from Charlotte to Ithaca, Departure Time: 21:42, Arrival Time: 23:26, Cost: 175
+Breakfast: Subway, Charlotte, Cost: 60, Cuisines: "Tea, Cafe, Mexican, Chinese, Seafood"
+Attraction: Books Monument, Charlotte, 
+Lunch: Olive Tree Cafe, Charlotte, Cost: 23, Cuisines: “Tea, Chinese, Desserts”
+Dinner: Kylin Skybar, Charlotte, Cost: 44, Cuisines: "Tea, Cafe, Pizza, Italian"
 Accommodation: -
+
+Number of people = 7
+Total cost = 7 * 175 + 7 * 60 + 7 * 23 + 7 * 44 = 2114
+
+Total cost across all days = 4872 + 2653 + 2114 = 9639
+Cuisines: The prompt specifies no cuisines, so all cuisines constraints are satisfied.
 
 ***** Example Ends *****
 
