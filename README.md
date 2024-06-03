@@ -118,7 +118,7 @@ We support the offline validation set evaluation through the provided evaluation
 
 ```bash
 export SET_TYPE=validation
-export EVALUATION_FILE_PATH=your/evaluation/file/path #should be ../postprocess/validation_mixtral-8x7b_direct_sole-planning_submission.jsonl
+export EVALUATION_FILE_PATH=../postprocess/validation_gpt-4-1106-preview_direct_sole-planning_submission.jsonl
 
 cd evaluation
 python eval.py --set_type $SET_TYPE --evaluation_file_path $EVALUATION_FILE_PATH
