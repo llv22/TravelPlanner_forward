@@ -1,6 +1,6 @@
 Category,Difficulty,Level,Constraint,'True,'False,Total,Success Percentage
 Commonsense Constraint,easy,3,Reasonable City Route,20,0,20,1.0
-Commonsense Constraint,easy,3,Diverse Restaurants,19,1,20,0.95
+Commonsense Constraint,easy,3,Diverse Restaurants,18,2,20,0.9
 Commonsense Constraint,easy,3,Diverse Attractions,20,0,20,1.0
 Commonsense Constraint,easy,3,Minimum Nights Stay,14,6,20,0.7
 Commonsense Constraint,easy,3,Non-conf. Transportation,19,1,20,0.95
