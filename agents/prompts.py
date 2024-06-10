@@ -65,21 +65,31 @@ Query: {query}
 Travel Plan:
 """
 
-PLANNER_INSTRUCTION = """You are a proficient planner. You are given a travel planning query reference information for the travel plan in CSV format. Your task is to output the travel plan.
-1. Include specifics such as flight numbers (e.g., F0123456), restaurant names, and hotel names. 
-2. All the information in your plan should be derived from the provided reference information. You must adhere to the format given in the example. 
-3. All details should align with common sense. For example, attraction visits and meals are expected to be diverse.
-4. The symbol '-' indicates that information is unnecessary. For example, in the provided sample, you do not need to plan after returning to the departure city. When you travel to two cities in one day, you should note it in the 'Current City' section as in the example (i.e., from A to B).
-5. When choosing accommodations, ensure that the number of nights stayed at that accommodation is at least the minimum number of nights given in the reference information. To help with this, you may as well choose the accommodation with the least number of required nights.
-6. Ensure that the final day of the plan returns to the origin city. Only return to the origin city on the last day; Do not return to the origin city on any of the other days.
-7. Do not visit the same attraction twice in the duration of the trip.
-8. Ensure that when you select Attractions, Accommodations, Transportation, and Meals from the reference data you note their price and obey the given budget. 
-9. Greedily choose the cheapest Attraction, Accommodation, Transportation, and Meal that aligns with the query from the reference data. 
-10. The cost of transportation can be calculated as follows: For flights, the cost is equal to the cost given in the reference information times the number of people in the plan. For self-driving, the cost is equal to the cost given in the reference information times the ceiling of the number of people in the plan over 5. For taxis, it is equal to the cost in the reference information times the ceiling of the number of people in the plan over 4.
-11. The cost of meals can be calculated as the cost given in the reference information times the number of people in the plan.
-12. The cost of accommodations is equal to the cost given in the reference information times the ceiling of the number of people in the plan over the maximum occupancy, also given in the reference information
-13. If the Query specifies any cuisines that are preferred, you must choose to dine at least one restaurant for each cuisine.
-14. If the Query specifies any house rules, you must abide by those rules when you choose accomodations
+PLANNER_INSTRUCTION = """You are a proficient planner. You are given a travel planning query reference information for the travel plan in CSV format. Your task is to output the travel plan. Additionally, follow the following constraints: 
+1. Ensure the travel plan includes specifics such as flight numbers (e.g., F0123456), restaurant names, and hotel names.
+2. Derive all information in the travel plan from the provided reference information, adhering strictly to the format given in the example.
+3. Verify that the city sequence starts and ends in the same city to form a closed circle.
+4. Confirm that every city in the sequence appears consecutively without reappearing once its sequence is over, except for the starting and ending city.
+5. Validate that all listed cities are real and mapped to their correct states using the city-state map.
+6. Include all required details: transportation, breakfast, lunch, dinner, attractions, and accommodation for each day of the trip.
+7. Ensure no restaurant name is repeated for breakfast, lunch, or dinner across the days.
+8. Verify no attraction is repeated on different days.
+9. Avoid conflicting transportation methods; for example, do not mix "Self-driving" with "Flight" or "Taxi" with "Self-driving".
+10. Ensure the transportation method listed each day corresponds correctly to the specified cities.
+11. Validate that the city in the current day matches the city listed in meals and attractions.
+12. Confirm that each day’s accommodation matches the final city listed for that day.
+13. Ensure the number of visiting cities matches the specified visiting city number in the query.
+14. Verify the number of days in the plan matches the specified number of days in the query.
+15. Include sufficient information such that at least 50% of required details (transportation, meals, attractions, accommodation) are provided for each day.
+16. Include only valid transportation modes that meet the constraints specified in the query.
+17. Avoid using prohibited transportation types such as flights if "no flight" is a constraint.
+18. Ensure accommodations adhere to the specified room type constraints. For example, if "not shared room" is specified, avoid booking shared rooms.
+19. Adhere to the house rules specified in the query. Avoid accommodations that do not meet rules such as "no smoking," "no parties," or "no pets."
+20. Select restaurants that offer the specified cuisines in the query. Ensure that the chosen restaurants match the required cuisine types.
+21. Ensure the total cost of the travel plan does not exceed the specified budget in the query. 22. Include costs for transportation, meals, and accommodations.
+23. When listing meals (breakfast, lunch, dinner), ensure the selected restaurants are valid and within the destination city, avoiding the origin city unless specified otherwise.
+24. Validate the availability and details of all flights, accommodations, and restaurants to ensure accuracy and feasibility within the travel dates and locations.
+25. Maintain consistency and accuracy in city names and other relevant location information to ensure proper validation by the evaluation script.
 ***** Example *****
 Query: Could you create a travel plan for 7 people from Ithaca to Charlotte spanning 3 days, from March 8th to March 14th, 2022, with a budget of $10,000?
 Travel Plan:
