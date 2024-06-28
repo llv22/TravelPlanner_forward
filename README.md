@@ -1,4 +1,4 @@
-<h1 align="center">TravelPlanner<br> A Benchmark for Real-World Planning<br> with Language Agents </h1>
+<h1 align="center">Smart Language Agents in Real-World Planning </h1>
 
 ![Travel Planner](https://img.shields.io/badge/Task-Planning-blue)
 ![Travel Planner](https://img.shields.io/badge/Task-Tool_Use-blue) 
@@ -10,7 +10,7 @@
     <img src="images/icon.png" width="10%"> <br>
 </p>
 
-Code for the Paper "[TravelPlanner: A Benchmark for Real-World Planning with Language Agents](http://arxiv.org/abs/2402.01622)".
+Code for the Paper "Smart Language Agents in Real-World Planning" (Under Review), based on the paper [TravelPlanner: A Benchmark for Real-World Planning with Language Agents](http://arxiv.org/abs/2402.01622)".
 
 ![Demo Video GIF](images/TravelPlanner.gif)
 
@@ -75,7 +75,7 @@ Please refer to paper for more details.
 ```bash
 export OUTPUT_DIR=path/to/your/output/file
 # We support MODEL in ['gpt-3.5-turbo-X','gpt-4-1106-preview','gemini','mistral-7B-32K','mixtral']
-export MODEL_NAME=MODEL_NAME # langfun
+export MODEL_NAME=MODEL_NAME
 export OPENAI_API_KEY=YOUR_OPENAI_KEY
 # if you do not want to test google models, like gemini, just input "1".
 export GOOGLE_API_KEY=YOUR_GOOGLE_KEY
@@ -132,40 +132,7 @@ from datasets import load_dataset
 data = load_dataset('osunlp/TravelPlanner','test')['test']
 ```
 
-## TODO
-
-- ##### Code
-
-  - [x] Baseline Code
-
-  - [x] Query Construction Code
-
-  - [x] Evaluation Code
-  - [x] Plan Parsing and Element Extraction Code
-
-- ##### Environment
-
-  - [x] Release Environment Database
-  - [ ] Database Field Introduction
-
 ## Contact
 
 If you have any problems, please contact 
-[Jian Xie](mailto:jianx0321@gmail.com),
-[Kai Zhang](mailto:zhang.13253@osu.edu),
-[Yu Su](mailto:su.809@osu.edu)
-
-## Citation Information
-
-If our paper or related resources prove valuable to your research, we kindly ask for citation. 
-
-<a href="https://github.com/OSU-NLP-Group/TravelPlanner"><img src="https://img.shields.io/github/stars/OSU-NLP-Group/TravelPlanner?style=social&label=TravelPanner" alt="GitHub Stars"></a>
-
-```
-@article{xie2024travelplanner,
-  title={Travelplanner: A benchmark for real-world planning with language agents},
-  author={Xie, Jian and Zhang, Kai and Chen, Jiangjie and Zhu, Tinghui and Lou, Renze and Tian, Yuandong and Xiao, Yanghua and Su, Yu},
-  journal={arXiv preprint arXiv:2402.01622},
-  year={2024}
-}
-```
+[Timothy Wei](mailto:timswei@gmail.com)

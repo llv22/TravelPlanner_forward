@@ -1,5 +1,0 @@
-[
-    {
-        "langfun_direct_sole-planning_results": "[\n  0 : Day(\n    day_number = 1,\n    current_city = 'Baton Rouge to Dallas',\n    transportation = Flight(\n      mode = 'flight',\n      flight_number = 'F3815330',\n      departure_time = '05:45',\n      arrival_time = '07:15'\n    ),\n    breakfast = None,\n    attraction = None,\n    lunch = 'Coconuts Fish Cafe',\n    dinner = '1918 Bistro & Grill',\n    accommodation = \"E. W'burg Private Room near subway\"\n  ),\n  1 : Day(\n    day_number = 2,\n    current_city = 'Dallas',\n    transportation = None,\n    breakfast = None,\n    attraction = 'The Dallas World Aquarium',\n    lunch = \"L'Opera\",\n    dinner = 'Kebab Xpress',\n    accommodation = \"E. W'burg Private Room near subway\"\n  ),\n  2 : Day(\n    day_number = 3,\n    current_city = 'Dallas to Baton Rouge',\n    transportation = Flight(\n      mode = 'flight',\n      flight_number = 'F3814165',\n      departure_time = '20:39',\n      arrival_time = '21:58'\n    ),\n    breakfast = None,\n    attraction = None,\n    lunch = 'Drifters Cafe',\n    dinner = None,\n    accommodation = None\n  )\n]"
-    }
-]

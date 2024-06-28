@@ -1,5 +1,0 @@
-[
-    {
-        "langfun_direct_sole-planning_results": "[\n  0 : Day(\n    day_number = 1,\n    current_city = 'San Jose to Portland',\n    transportation = OtherTransportation(\n      mode = 'self-driving'\n    ),\n    breakfast = None,\n    attraction = None,\n    lunch = None,\n    dinner = 'Osaka',\n    accommodation = 'The Palace of Perhaps (Bushwick / Ridgewood)'\n  ),\n  1 : Day(\n    day_number = 2,\n    current_city = 'Portland',\n    transportation = None,\n    breakfast = 'Public Cafe',\n    attraction = 'Portland Japanese Garden',\n    lunch = 'Mighty Mughlai',\n    dinner = 'Fortune Deli - Fortune Inn Grazia',\n    accommodation = 'The Palace of Perhaps (Bushwick / Ridgewood)'\n  ),\n  2 : Day(\n    day_number = 3,\n    current_city = 'Portland to San Jose',\n    transportation = OtherTransportation(\n      mode = 'self-driving'\n    ),\n    breakfast = None,\n    attraction = None,\n    lunch = None,\n    dinner = None,\n    accommodation = None\n  )\n]"
-    }
-]
