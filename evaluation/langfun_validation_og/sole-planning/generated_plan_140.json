@@ -1,5 +1,0 @@
-[
-    {
-        "langfun_direct_sole-planning_results": "[\n  0 : Day(\n    day_number = 1,\n    current_city = 'El Paso to Phoenix',\n    transportation = OtherTransportation(\n      mode = 'self-driving'\n    ),\n    breakfast = None,\n    attraction = None,\n    lunch = None,\n    dinner = None,\n    accommodation = '1 BR in Carroll Gardens Townhouse'\n  ),\n  1 : Day(\n    day_number = 2,\n    current_city = 'Phoenix',\n    transportation = None,\n    breakfast = 'Pizza Hut',\n    attraction = 'Musical Instrument Museum',\n    lunch = 'Doughlicious',\n    dinner = 'Mama Loca',\n    accommodation = 'Bright, Williamsburg bedroom with private balcony'\n  ),\n  2 : Day(\n    day_number = 3,\n    current_city = 'Phoenix',\n    transportation = None,\n    breakfast = 'Village Restaurant',\n    attraction = 'Desert Botanical Garden',\n    lunch = 'Enigma Lounge',\n    dinner = 'Mughal E Azam',\n    accommodation = 'Bright big bedroom in Brooklyn'\n  )\n]"
-    }
-]
